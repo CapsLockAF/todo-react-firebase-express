@@ -5,7 +5,7 @@ exports.getAllTodos = (request, response) => {
 	db
         .collection('todos')
         .where('username', '==', request.user.username)
-        .orderBy('createdAt', 'desc')
+		.orderBy('createdAt', 'desc')
 		.get()
 		.then((data) => {
 			let todos = [];
@@ -13,6 +13,7 @@ exports.getAllTodos = (request, response) => {
 				todos.push({
                     todoId: doc.id,
                     title: doc.data().title,
+                    username: doc.data().username,
 					body: doc.data().body,
 					createdAt: doc.data().createdAt,
 				});
@@ -22,6 +23,30 @@ exports.getAllTodos = (request, response) => {
 		.catch((err) => {
 			console.error(err);
 			return response.status(500).json({ error: err.code});
+		});
+};
+
+exports.getOneTodo = (request, response) => {
+	db
+        .doc(`/todos/${request.params.todoId}`)
+		.get()
+		.then((doc) => {
+			if (!doc.exists) {
+				return response.status(404).json(
+                    { 
+                        error: 'Todo not found' 
+                    });
+            }
+            if(doc.data().username !== request.user.username){
+                return response.status(403).json({error:"UnAuthorized"})
+            }
+			TodoData = doc.data();
+			TodoData.todoId = doc.id;
+			return response.json(TodoData);
+		})
+		.catch((err) => {
+			console.error(err);
+			return response.status(500).json({ error: error.code });
 		});
 };
 

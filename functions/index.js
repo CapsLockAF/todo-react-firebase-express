@@ -12,6 +12,7 @@ const {
 
 const {
     getAllTodos,
+    getOneTodo,
     postOneTodo,
     deleteTodo,
     editTodo,
@@ -20,7 +21,7 @@ const {
 
 //Todos
 app.get('/todos', auth, getAllTodos);
-// app.get('/todo/:todoId', auth, getOneTodo);
+app.get('/todo/:todoId', auth, getOneTodo);
 app.post('/todo',auth, postOneTodo);
 app.delete('/todo/:todoId',auth, deleteTodo);
 app.put('/todo/:todoId',auth, editTodo);

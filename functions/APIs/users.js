@@ -174,8 +174,8 @@ exports.getUserDetail = (request, response) => {
                 userData.userCredentials = doc.data();
                 return response.json(userData);
 			} else {
-                // return response.status(400).json({ userCredentials: 'userCredentials 400' });
-                return
+                return response.status(400).json({ userCredentials: 'userCredentials 400' });
+                // return
             }	
 		})
 		.catch((error) => {
