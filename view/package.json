@@ -34,5 +34,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "https://us-central1-todo-react-firebase-expr-1eaa7.cloudfunctions.net/api"
 }
