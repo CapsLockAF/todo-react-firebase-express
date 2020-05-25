@@ -15,7 +15,7 @@ import axios from 'axios';
 
 import styles from './styles'
 
-const LoginPage = props => {
+const LoginPage = ({classes, history}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
@@ -43,26 +43,12 @@ const LoginPage = props => {
             const response = await axios.post('/login', userData);
             localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
             setLoading(false);	
-            props.history.push('/');
+            history.push('/');
         } catch (error) {
             setErrors(error.response.data);
             setLoading(false);
         }
-	
-		// axios
-		// 	.post('/login', userData)
-		// 	.then((response) => {
-		// 		localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-		// 		setLoading(false);	
-		// 		props.history.push('/');
-		// 	})
-		// 	.catch((error) => {				
-        //         setErrors(error.response.data);
-        //         setLoading(false);
-		// 	});
     };
-    
-    const {classes} = props;
 
     return (
         <Container component="main" maxWidth="xs">

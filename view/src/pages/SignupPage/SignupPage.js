@@ -15,7 +15,7 @@ import axios from 'axios';
 
 import styles from './styles';
 
-const SignupPage = props => {
+const SignupPage = ({classes, history}) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -28,31 +28,31 @@ const SignupPage = props => {
     const [loading, setLoading] = useState(false);
 
 	const handleChange = event => {
-        const value = event.target.value
+        const v = event.target.value
         switch (event.target.name) {
             case 'firstName':
-                setFirstName(value);
+                setFirstName(v);
                 break;
             case 'lastName':
-                setLastName(value);
+                setLastName(v);
                 break;
             case 'phoneNumber':
-                setPhoneNumber(value);
+                setPhoneNumber(v);
                 break;
             case 'country':
-                setCountry(value);
+                setCountry(v);
                 break;
             case 'username':
-                setUsername(value);
+                setUsername(v);
                 break;
             case 'email':
-                setEmail(value);
+                setEmail(v);
                 break;
             case 'password':
-                setPassword(value);
+                setPassword(v);
                 break;
             case 'confirmPassword':
-                setConfirmPassword(value);
+                setConfirmPassword(v);
                 break;
         
             default:
@@ -77,14 +77,12 @@ const SignupPage = props => {
             const response = await axios.post('/signup', newUserData);
             localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
             setLoading(false);	
-            props.history.push('/');
+            history.push('/');
         } catch (error) {
             setErrors(error.response.data);
             setLoading(false);
         }
     };
-    
-    const { classes } = props;
     
     return (
         <Container component="main" maxWidth="xs">
